@@ -20,6 +20,12 @@ module.exports = (robot) ->
 
   robot.respond /pug bomb( (\d+))?/i, (msg) ->
     count = msg.match[2] || 5
+
+    # 1 only please!
+    if count > 1
+      count = 1
+      msg.send "1 pug only dummy"
+
     msg.http("http://pugme.herokuapp.com/bomb?count=" + count)
       .get() (err, res, body) ->
         msg.send pug for pug in JSON.parse(body).pugs
