@@ -2,8 +2,9 @@
 #   predict outcome
 #
 # Commands:
-#   hubot is some question
-#   hubot predict some question
+#   hubot is <some question>
+#   hubot predict <some question>
+#   hubot predict add <repsonse>
 #
 # Examples:
 #   hubot is brian hungry
@@ -34,15 +35,10 @@ CANNED_RESPONSES = [
 ]
 
 module.exports = (robot) ->
+  # robot.respond /predict\-add (.*)/, (msg) ->
+  #   robot.brain[thisKey] = (robot.brain[thisKey] || []) + msg.match[1]
+  #   msg.send "Added #{msg.match[1]} to my list of outcomes"
 
-  robot.respond /^(\s*)(is) (.+)\?$/, (msg) ->
-    populateKeysIfEmpty
-    possibleResponses = robot.brain[thisKey]
-    randomIndex = Math.floor Math.random() * (possibleResponses.length + 1)
-    msg.send ">#{possibleResponses[randomIndex]}"
-
-  populateKeysIfEmpty = ->
-    msg.send "Populating keys"
-    possibleResponses = robot.brain[thisKey]
-    if typeof possibleResponses is "undefined" or possibleResponses.length is 0
-      robot.brain[thisKey] = CANNED_RESPONSES
+  robot.respond /(is|predict) (.+)/i, (msg) ->
+    possibleResponses = CANNED_RESPONSES# + robot.brain[thisKey]
+    msg.reply msg.random possibleResponses
