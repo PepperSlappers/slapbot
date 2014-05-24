@@ -1,3 +1,6 @@
+# From:
+#   https://github.com/jonnycampbell/hubot-against-humanity
+#
 # Description:
 #   Cards Against Humanity v0.1
 #
